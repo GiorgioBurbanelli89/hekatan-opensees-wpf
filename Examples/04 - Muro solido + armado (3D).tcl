@@ -1,0 +1,471 @@
+# Muro de corte RC SOLIDO + armado — visor Calcpad-OpenSees (ndm 3)
+wipe
+model basic -ndm 3 -ndf 3
+nDMaterial ElasticIsotropic 1 25.0e9 0.2
+uniaxialMaterial Steel02 2 420.0e6 200.0e9 0.01 18.0 0.925 0.15
+node 1 0 0 0
+node 2 0.1875 0 0
+node 3 0.1875 0.075 0
+node 4 0 0.075 0
+node 5 0 0 0.166667
+node 6 0.1875 0 0.166667
+node 7 0.1875 0.075 0.166667
+node 8 0 0.075 0.166667
+node 9 0.375 0 0
+node 10 0.375 0.075 0
+node 11 0.375 0 0.166667
+node 12 0.375 0.075 0.166667
+node 13 0.5625 0 0
+node 14 0.5625 0.075 0
+node 15 0.5625 0 0.166667
+node 16 0.5625 0.075 0.166667
+node 17 0.75 0 0
+node 18 0.75 0.075 0
+node 19 0.75 0 0.166667
+node 20 0.75 0.075 0.166667
+node 21 0.9375 0 0
+node 22 0.9375 0.075 0
+node 23 0.9375 0 0.166667
+node 24 0.9375 0.075 0.166667
+node 25 1.125 0 0
+node 26 1.125 0.075 0
+node 27 1.125 0 0.166667
+node 28 1.125 0.075 0.166667
+node 29 1.3125 0 0
+node 30 1.3125 0.075 0
+node 31 1.3125 0 0.166667
+node 32 1.3125 0.075 0.166667
+node 33 1.5 0 0
+node 34 1.5 0.075 0
+node 35 1.5 0 0.166667
+node 36 1.5 0.075 0.166667
+node 37 0.1875 0.15 0
+node 38 0 0.15 0
+node 39 0.1875 0.15 0.166667
+node 40 0 0.15 0.166667
+node 41 0.375 0.15 0
+node 42 0.375 0.15 0.166667
+node 43 0.5625 0.15 0
+node 44 0.5625 0.15 0.166667
+node 45 0.75 0.15 0
+node 46 0.75 0.15 0.166667
+node 47 0.9375 0.15 0
+node 48 0.9375 0.15 0.166667
+node 49 1.125 0.15 0
+node 50 1.125 0.15 0.166667
+node 51 1.3125 0.15 0
+node 52 1.3125 0.15 0.166667
+node 53 1.5 0.15 0
+node 54 1.5 0.15 0.166667
+node 55 0 0 0.333333
+node 56 0.1875 0 0.333333
+node 57 0.1875 0.075 0.333333
+node 58 0 0.075 0.333333
+node 59 0.375 0 0.333333
+node 60 0.375 0.075 0.333333
+node 61 0.5625 0 0.333333
+node 62 0.5625 0.075 0.333333
+node 63 0.75 0 0.333333
+node 64 0.75 0.075 0.333333
+node 65 0.9375 0 0.333333
+node 66 0.9375 0.075 0.333333
+node 67 1.125 0 0.333333
+node 68 1.125 0.075 0.333333
+node 69 1.3125 0 0.333333
+node 70 1.3125 0.075 0.333333
+node 71 1.5 0 0.333333
+node 72 1.5 0.075 0.333333
+node 73 0.1875 0.15 0.333333
+node 74 0 0.15 0.333333
+node 75 0.375 0.15 0.333333
+node 76 0.5625 0.15 0.333333
+node 77 0.75 0.15 0.333333
+node 78 0.9375 0.15 0.333333
+node 79 1.125 0.15 0.333333
+node 80 1.3125 0.15 0.333333
+node 81 1.5 0.15 0.333333
+node 82 0 0 0.5
+node 83 0.1875 0 0.5
+node 84 0.1875 0.075 0.5
+node 85 0 0.075 0.5
+node 86 0.375 0 0.5
+node 87 0.375 0.075 0.5
+node 88 0.5625 0 0.5
+node 89 0.5625 0.075 0.5
+node 90 0.75 0 0.5
+node 91 0.75 0.075 0.5
+node 92 0.9375 0 0.5
+node 93 0.9375 0.075 0.5
+node 94 1.125 0 0.5
+node 95 1.125 0.075 0.5
+node 96 1.3125 0 0.5
+node 97 1.3125 0.075 0.5
+node 98 1.5 0 0.5
+node 99 1.5 0.075 0.5
+node 100 0.1875 0.15 0.5
+node 101 0 0.15 0.5
+node 102 0.375 0.15 0.5
+node 103 0.5625 0.15 0.5
+node 104 0.75 0.15 0.5
+node 105 0.9375 0.15 0.5
+node 106 1.125 0.15 0.5
+node 107 1.3125 0.15 0.5
+node 108 1.5 0.15 0.5
+node 109 0 0 0.666667
+node 110 0.1875 0 0.666667
+node 111 0.1875 0.075 0.666667
+node 112 0 0.075 0.666667
+node 113 0.375 0 0.666667
+node 114 0.375 0.075 0.666667
+node 115 0.5625 0 0.666667
+node 116 0.5625 0.075 0.666667
+node 117 0.75 0 0.666667
+node 118 0.75 0.075 0.666667
+node 119 0.9375 0 0.666667
+node 120 0.9375 0.075 0.666667
+node 121 1.125 0 0.666667
+node 122 1.125 0.075 0.666667
+node 123 1.3125 0 0.666667
+node 124 1.3125 0.075 0.666667
+node 125 1.5 0 0.666667
+node 126 1.5 0.075 0.666667
+node 127 0.1875 0.15 0.666667
+node 128 0 0.15 0.666667
+node 129 0.375 0.15 0.666667
+node 130 0.5625 0.15 0.666667
+node 131 0.75 0.15 0.666667
+node 132 0.9375 0.15 0.666667
+node 133 1.125 0.15 0.666667
+node 134 1.3125 0.15 0.666667
+node 135 1.5 0.15 0.666667
+node 136 0 0 0.833333
+node 137 0.1875 0 0.833333
+node 138 0.1875 0.075 0.833333
+node 139 0 0.075 0.833333
+node 140 0.375 0 0.833333
+node 141 0.375 0.075 0.833333
+node 142 0.5625 0 0.833333
+node 143 0.5625 0.075 0.833333
+node 144 0.75 0 0.833333
+node 145 0.75 0.075 0.833333
+node 146 0.9375 0 0.833333
+node 147 0.9375 0.075 0.833333
+node 148 1.125 0 0.833333
+node 149 1.125 0.075 0.833333
+node 150 1.3125 0 0.833333
+node 151 1.3125 0.075 0.833333
+node 152 1.5 0 0.833333
+node 153 1.5 0.075 0.833333
+node 154 0.1875 0.15 0.833333
+node 155 0 0.15 0.833333
+node 156 0.375 0.15 0.833333
+node 157 0.5625 0.15 0.833333
+node 158 0.75 0.15 0.833333
+node 159 0.9375 0.15 0.833333
+node 160 1.125 0.15 0.833333
+node 161 1.3125 0.15 0.833333
+node 162 1.5 0.15 0.833333
+node 163 0 0 1
+node 164 0.1875 0 1
+node 165 0.1875 0.075 1
+node 166 0 0.075 1
+node 167 0.375 0 1
+node 168 0.375 0.075 1
+node 169 0.5625 0 1
+node 170 0.5625 0.075 1
+node 171 0.75 0 1
+node 172 0.75 0.075 1
+node 173 0.9375 0 1
+node 174 0.9375 0.075 1
+node 175 1.125 0 1
+node 176 1.125 0.075 1
+node 177 1.3125 0 1
+node 178 1.3125 0.075 1
+node 179 1.5 0 1
+node 180 1.5 0.075 1
+node 181 0.1875 0.15 1
+node 182 0 0.15 1
+node 183 0.375 0.15 1
+node 184 0.5625 0.15 1
+node 185 0.75 0.15 1
+node 186 0.9375 0.15 1
+node 187 1.125 0.15 1
+node 188 1.3125 0.15 1
+node 189 1.5 0.15 1
+element stdBrick 1 1 2 3 4 5 6 7 8 1
+element stdBrick 2 2 9 10 3 6 11 12 7 1
+element stdBrick 3 9 13 14 10 11 15 16 12 1
+element stdBrick 4 13 17 18 14 15 19 20 16 1
+element stdBrick 5 17 21 22 18 19 23 24 20 1
+element stdBrick 6 21 25 26 22 23 27 28 24 1
+element stdBrick 7 25 29 30 26 27 31 32 28 1
+element stdBrick 8 29 33 34 30 31 35 36 32 1
+element stdBrick 9 4 3 37 38 8 7 39 40 1
+element stdBrick 10 3 10 41 37 7 12 42 39 1
+element stdBrick 11 10 14 43 41 12 16 44 42 1
+element stdBrick 12 14 18 45 43 16 20 46 44 1
+element stdBrick 13 18 22 47 45 20 24 48 46 1
+element stdBrick 14 22 26 49 47 24 28 50 48 1
+element stdBrick 15 26 30 51 49 28 32 52 50 1
+element stdBrick 16 30 34 53 51 32 36 54 52 1
+element stdBrick 17 5 6 7 8 55 56 57 58 1
+element stdBrick 18 6 11 12 7 56 59 60 57 1
+element stdBrick 19 11 15 16 12 59 61 62 60 1
+element stdBrick 20 15 19 20 16 61 63 64 62 1
+element stdBrick 21 19 23 24 20 63 65 66 64 1
+element stdBrick 22 23 27 28 24 65 67 68 66 1
+element stdBrick 23 27 31 32 28 67 69 70 68 1
+element stdBrick 24 31 35 36 32 69 71 72 70 1
+element stdBrick 25 8 7 39 40 58 57 73 74 1
+element stdBrick 26 7 12 42 39 57 60 75 73 1
+element stdBrick 27 12 16 44 42 60 62 76 75 1
+element stdBrick 28 16 20 46 44 62 64 77 76 1
+element stdBrick 29 20 24 48 46 64 66 78 77 1
+element stdBrick 30 24 28 50 48 66 68 79 78 1
+element stdBrick 31 28 32 52 50 68 70 80 79 1
+element stdBrick 32 32 36 54 52 70 72 81 80 1
+element stdBrick 33 55 56 57 58 82 83 84 85 1
+element stdBrick 34 56 59 60 57 83 86 87 84 1
+element stdBrick 35 59 61 62 60 86 88 89 87 1
+element stdBrick 36 61 63 64 62 88 90 91 89 1
+element stdBrick 37 63 65 66 64 90 92 93 91 1
+element stdBrick 38 65 67 68 66 92 94 95 93 1
+element stdBrick 39 67 69 70 68 94 96 97 95 1
+element stdBrick 40 69 71 72 70 96 98 99 97 1
+element stdBrick 41 58 57 73 74 85 84 100 101 1
+element stdBrick 42 57 60 75 73 84 87 102 100 1
+element stdBrick 43 60 62 76 75 87 89 103 102 1
+element stdBrick 44 62 64 77 76 89 91 104 103 1
+element stdBrick 45 64 66 78 77 91 93 105 104 1
+element stdBrick 46 66 68 79 78 93 95 106 105 1
+element stdBrick 47 68 70 80 79 95 97 107 106 1
+element stdBrick 48 70 72 81 80 97 99 108 107 1
+element stdBrick 49 82 83 84 85 109 110 111 112 1
+element stdBrick 50 83 86 87 84 110 113 114 111 1
+element stdBrick 51 86 88 89 87 113 115 116 114 1
+element stdBrick 52 88 90 91 89 115 117 118 116 1
+element stdBrick 53 90 92 93 91 117 119 120 118 1
+element stdBrick 54 92 94 95 93 119 121 122 120 1
+element stdBrick 55 94 96 97 95 121 123 124 122 1
+element stdBrick 56 96 98 99 97 123 125 126 124 1
+element stdBrick 57 85 84 100 101 112 111 127 128 1
+element stdBrick 58 84 87 102 100 111 114 129 127 1
+element stdBrick 59 87 89 103 102 114 116 130 129 1
+element stdBrick 60 89 91 104 103 116 118 131 130 1
+element stdBrick 61 91 93 105 104 118 120 132 131 1
+element stdBrick 62 93 95 106 105 120 122 133 132 1
+element stdBrick 63 95 97 107 106 122 124 134 133 1
+element stdBrick 64 97 99 108 107 124 126 135 134 1
+element stdBrick 65 109 110 111 112 136 137 138 139 1
+element stdBrick 66 110 113 114 111 137 140 141 138 1
+element stdBrick 67 113 115 116 114 140 142 143 141 1
+element stdBrick 68 115 117 118 116 142 144 145 143 1
+element stdBrick 69 117 119 120 118 144 146 147 145 1
+element stdBrick 70 119 121 122 120 146 148 149 147 1
+element stdBrick 71 121 123 124 122 148 150 151 149 1
+element stdBrick 72 123 125 126 124 150 152 153 151 1
+element stdBrick 73 112 111 127 128 139 138 154 155 1
+element stdBrick 74 111 114 129 127 138 141 156 154 1
+element stdBrick 75 114 116 130 129 141 143 157 156 1
+element stdBrick 76 116 118 131 130 143 145 158 157 1
+element stdBrick 77 118 120 132 131 145 147 159 158 1
+element stdBrick 78 120 122 133 132 147 149 160 159 1
+element stdBrick 79 122 124 134 133 149 151 161 160 1
+element stdBrick 80 124 126 135 134 151 153 162 161 1
+element stdBrick 81 136 137 138 139 163 164 165 166 1
+element stdBrick 82 137 140 141 138 164 167 168 165 1
+element stdBrick 83 140 142 143 141 167 169 170 168 1
+element stdBrick 84 142 144 145 143 169 171 172 170 1
+element stdBrick 85 144 146 147 145 171 173 174 172 1
+element stdBrick 86 146 148 149 147 173 175 176 174 1
+element stdBrick 87 148 150 151 149 175 177 178 176 1
+element stdBrick 88 150 152 153 151 177 179 180 178 1
+element stdBrick 89 139 138 154 155 166 165 181 182 1
+element stdBrick 90 138 141 156 154 165 168 183 181 1
+element stdBrick 91 141 143 157 156 168 170 184 183 1
+element stdBrick 92 143 145 158 157 170 172 185 184 1
+element stdBrick 93 145 147 159 158 172 174 186 185 1
+element stdBrick 94 147 149 160 159 174 176 187 186 1
+element stdBrick 95 149 151 161 160 176 178 188 187 1
+element stdBrick 96 151 153 162 161 178 180 189 188 1
+element truss 97 4 8 0.0002 2
+element truss 98 8 58 0.0002 2
+element truss 99 58 85 0.0002 2
+element truss 100 85 112 0.0002 2
+element truss 101 112 139 0.0002 2
+element truss 102 139 166 0.0002 2
+element truss 103 3 7 0.0002 2
+element truss 104 7 57 0.0002 2
+element truss 105 57 84 0.0002 2
+element truss 106 84 111 0.0002 2
+element truss 107 111 138 0.0002 2
+element truss 108 138 165 0.0002 2
+element truss 109 10 12 0.0002 2
+element truss 110 12 60 0.0002 2
+element truss 111 60 87 0.0002 2
+element truss 112 87 114 0.0002 2
+element truss 113 114 141 0.0002 2
+element truss 114 141 168 0.0002 2
+element truss 115 14 16 0.0002 2
+element truss 116 16 62 0.0002 2
+element truss 117 62 89 0.0002 2
+element truss 118 89 116 0.0002 2
+element truss 119 116 143 0.0002 2
+element truss 120 143 170 0.0002 2
+element truss 121 18 20 0.0002 2
+element truss 122 20 64 0.0002 2
+element truss 123 64 91 0.0002 2
+element truss 124 91 118 0.0002 2
+element truss 125 118 145 0.0002 2
+element truss 126 145 172 0.0002 2
+element truss 127 22 24 0.0002 2
+element truss 128 24 66 0.0002 2
+element truss 129 66 93 0.0002 2
+element truss 130 93 120 0.0002 2
+element truss 131 120 147 0.0002 2
+element truss 132 147 174 0.0002 2
+element truss 133 26 28 0.0002 2
+element truss 134 28 68 0.0002 2
+element truss 135 68 95 0.0002 2
+element truss 136 95 122 0.0002 2
+element truss 137 122 149 0.0002 2
+element truss 138 149 176 0.0002 2
+element truss 139 30 32 0.0002 2
+element truss 140 32 70 0.0002 2
+element truss 141 70 97 0.0002 2
+element truss 142 97 124 0.0002 2
+element truss 143 124 151 0.0002 2
+element truss 144 151 178 0.0002 2
+element truss 145 34 36 0.0002 2
+element truss 146 36 72 0.0002 2
+element truss 147 72 99 0.0002 2
+element truss 148 99 126 0.0002 2
+element truss 149 126 153 0.0002 2
+element truss 150 153 180 0.0002 2
+element truss 151 4 3 0.0001 2
+element truss 152 3 10 0.0001 2
+element truss 153 10 14 0.0001 2
+element truss 154 14 18 0.0001 2
+element truss 155 18 22 0.0001 2
+element truss 156 22 26 0.0001 2
+element truss 157 26 30 0.0001 2
+element truss 158 30 34 0.0001 2
+element truss 159 8 7 0.0001 2
+element truss 160 7 12 0.0001 2
+element truss 161 12 16 0.0001 2
+element truss 162 16 20 0.0001 2
+element truss 163 20 24 0.0001 2
+element truss 164 24 28 0.0001 2
+element truss 165 28 32 0.0001 2
+element truss 166 32 36 0.0001 2
+element truss 167 58 57 0.0001 2
+element truss 168 57 60 0.0001 2
+element truss 169 60 62 0.0001 2
+element truss 170 62 64 0.0001 2
+element truss 171 64 66 0.0001 2
+element truss 172 66 68 0.0001 2
+element truss 173 68 70 0.0001 2
+element truss 174 70 72 0.0001 2
+element truss 175 85 84 0.0001 2
+element truss 176 84 87 0.0001 2
+element truss 177 87 89 0.0001 2
+element truss 178 89 91 0.0001 2
+element truss 179 91 93 0.0001 2
+element truss 180 93 95 0.0001 2
+element truss 181 95 97 0.0001 2
+element truss 182 97 99 0.0001 2
+element truss 183 112 111 0.0001 2
+element truss 184 111 114 0.0001 2
+element truss 185 114 116 0.0001 2
+element truss 186 116 118 0.0001 2
+element truss 187 118 120 0.0001 2
+element truss 188 120 122 0.0001 2
+element truss 189 122 124 0.0001 2
+element truss 190 124 126 0.0001 2
+element truss 191 139 138 0.0001 2
+element truss 192 138 141 0.0001 2
+element truss 193 141 143 0.0001 2
+element truss 194 143 145 0.0001 2
+element truss 195 145 147 0.0001 2
+element truss 196 147 149 0.0001 2
+element truss 197 149 151 0.0001 2
+element truss 198 151 153 0.0001 2
+element truss 199 166 165 0.0001 2
+element truss 200 165 168 0.0001 2
+element truss 201 168 170 0.0001 2
+element truss 202 170 172 0.0001 2
+element truss 203 172 174 0.0001 2
+element truss 204 174 176 0.0001 2
+element truss 205 176 178 0.0001 2
+element truss 206 178 180 0.0001 2
+fix 1 1 1 1
+fix 2 1 1 1
+fix 3 1 1 1
+fix 4 1 1 1
+fix 9 1 1 1
+fix 10 1 1 1
+fix 13 1 1 1
+fix 14 1 1 1
+fix 17 1 1 1
+fix 18 1 1 1
+fix 21 1 1 1
+fix 22 1 1 1
+fix 25 1 1 1
+fix 26 1 1 1
+fix 29 1 1 1
+fix 30 1 1 1
+fix 33 1 1 1
+fix 34 1 1 1
+fix 37 1 1 1
+fix 38 1 1 1
+fix 41 1 1 1
+fix 43 1 1 1
+fix 45 1 1 1
+fix 47 1 1 1
+fix 49 1 1 1
+fix 51 1 1 1
+fix 53 1 1 1
+timeSeries Linear 1
+pattern Plain 1 1 {
+  load 163 29629.6 0 0
+  load 164 29629.6 0 0
+  load 165 29629.6 0 0
+  load 166 29629.6 0 0
+  load 167 29629.6 0 0
+  load 168 29629.6 0 0
+  load 169 29629.6 0 0
+  load 170 29629.6 0 0
+  load 171 29629.6 0 0
+  load 172 29629.6 0 0
+  load 173 29629.6 0 0
+  load 174 29629.6 0 0
+  load 175 29629.6 0 0
+  load 176 29629.6 0 0
+  load 177 29629.6 0 0
+  load 178 29629.6 0 0
+  load 179 29629.6 0 0
+  load 180 29629.6 0 0
+  load 181 29629.6 0 0
+  load 182 29629.6 0 0
+  load 183 29629.6 0 0
+  load 184 29629.6 0 0
+  load 185 29629.6 0 0
+  load 186 29629.6 0 0
+  load 187 29629.6 0 0
+  load 188 29629.6 0 0
+  load 189 29629.6 0 0
+}
+constraints Transformation
+numberer RCM
+system BandGeneral
+test NormDispIncr 1.0e-6 100 0
+algorithm Newton
+integrator LoadControl 1.0
+analysis Static
+analyze 1
+puts "=== MURO DE CORTE SOLIDO + ARMADO ==="
+puts "Nodos: 189   Bricks: 96   Barras: 110"
+puts "Carga lateral total: 800 kN"
+puts "Desplazamiento lateral tope ux = [format %.4f [expr 1000.0*[nodeDisp 163 1]]] mm"
+puts "HEKATAN:ux_tope_mm=[expr 1000.0*[nodeDisp 163 1]]"
+puts "HEKATAN:uy_tope_mm=[expr 1000.0*[nodeDisp 163 2]]"

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>HekatanOpenSees</AssemblyName>
+    <RootNamespace>HekatanOpenSees</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3595.46" />
+    <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
+  </ItemGroup>
+
+  <!-- Motor Python (renderiza el script) + gráficas embebidas viajan junto al .exe. La DLL (OpenSees.dll) y la LAPACK de 32 bits se buscan en ..\test -->
+  <ItemGroup>
+    <None Include="oscalc.py;ecuacion.py;cad3d.js;grieta.js;modos.js;plotly-2.35.2.min.js;plotly_gfx.js;hk_ops.py;corroborar.py;mlplot.js;glplot.js;matlab.js;vtk_umd.js;osvtk.js;galeria_matlab.tcl;portico3d.tcl" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Examples\*.tcl" LinkBase="Examples" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- DWG: el escritor acadrust-wasm (el mismo de Hekatan LISP); se corre con Node -->
+  <ItemGroup Condition="Exists('$(USERPROFILE)\acadrust-wasm\pkg-node')">
+    <None Include="$(USERPROFILE)\acadrust-wasm\pkg-node\acadrust_wasm.js" Link="dwg\acadrust_wasm.js" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(USERPROFILE)\acadrust-wasm\pkg-node\acadrust_wasm_bg.wasm" Link="dwg\acadrust_wasm_bg.wasm" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

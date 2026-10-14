@@ -1,0 +1,323 @@
+<Window x:Class="HekatanOpenSees.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="Hekatan OpenSees" Height="800" Width="1240"
+        FontFamily="Roboto, Segoe UI" FontSize="13"
+        WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow"
+        Background="{DynamicResource ThemeWindowBg}"
+        Foreground="{DynamicResource ThemeText}">
+
+    <!-- ===================== TEMA (igual que Hekatan Lab: Oscuro por defecto; el botón reasigna estos brushes) ===================== -->
+    <Window.Resources>
+        <SolidColorBrush x:Key="ThemeWindowBg"    Color="#141109"/>
+        <SolidColorBrush x:Key="ThemePanelBg"     Color="#1c1810"/>
+        <SolidColorBrush x:Key="ThemeEditorBg"    Color="#1a1712"/>
+        <SolidColorBrush x:Key="ThemeText"        Color="#E8E2D4"/>
+        <SolidColorBrush x:Key="ThemeTextMuted"   Color="#A89F8C"/>
+        <SolidColorBrush x:Key="ThemeAccentRed"   Color="#E5382B"/>
+        <SolidColorBrush x:Key="ThemeAccentGold"  Color="#E6C463"/>
+        <SolidColorBrush x:Key="ThemeButtonBg"    Color="#262016"/>
+        <SolidColorBrush x:Key="ThemeButtonBorder" Color="#3A3226"/>
+        <SolidColorBrush x:Key="ThemeGutterBg"    Color="#211D16"/>
+        <SolidColorBrush x:Key="ThemeHoverBg"     Color="#33E5382B"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.MenuTextBrushKey}" Color="#E8E2D4"/>
+        <SolidColorBrush x:Key="{x:Static SystemColors.MenuBrushKey}" Color="#1C1810"/>
+        <Style TargetType="{x:Type MenuItem}">
+            <Setter Property="Foreground" Value="{DynamicResource ThemeText}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type MenuItem}">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="MenuIcon"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter x:Name="Icon" Grid.Column="0" ContentSource="Icon"
+                                                  VerticalAlignment="Center" Margin="6,0,0,0"/>
+                                <ContentPresenter x:Name="HeaderHost" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True"
+                                                  VerticalAlignment="Center" Margin="8,4,8,4"/>
+                                <TextBlock x:Name="GestureText" Grid.Column="2" Text="{TemplateBinding InputGestureText}"
+                                           Foreground="{DynamicResource ThemeTextMuted}" Margin="20,4,8,4" VerticalAlignment="Center"/>
+                                <Path x:Name="Arrow" Grid.Column="3" Data="M0,0 L4,4 L0,8 Z"
+                                      Fill="{DynamicResource ThemeText}" VerticalAlignment="Center"
+                                      Margin="4,0,8,0" Visibility="Collapsed"/>
+                                <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False"
+                                       IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                       Placement="Bottom" PopupAnimation="None">
+                                    <Border Background="{DynamicResource ThemePanelBg}"
+                                            BorderBrush="{DynamicResource ThemeButtonBorder}" BorderThickness="1" Padding="2">
+                                        <Grid IsSharedSizeScope="True">
+                                            <StackPanel IsItemsHost="True"
+                                                        KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                                        </Grid>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Role" Value="SubmenuHeader">
+                                <Setter TargetName="Arrow" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="PART_Popup" Property="Placement" Value="Right"/>
+                            </Trigger>
+                            <!-- Items de la BARRA (nivel superior): compactos, sin gesto/flecha,
+                                 para no crecer de alto ni chocar con la toolbar. -->
+                            <Trigger Property="Role" Value="TopLevelHeader">
+                                <Setter TargetName="PART_Popup" Property="Placement" Value="Bottom"/>
+                                <Setter TargetName="GestureText" Property="Visibility" Value="Collapsed"/>
+                                <Setter TargetName="HeaderHost" Property="Margin" Value="7,1,7,1"/>
+                            </Trigger>
+                            <Trigger Property="Role" Value="TopLevelItem">
+                                <Setter TargetName="GestureText" Property="Visibility" Value="Collapsed"/>
+                                <Setter TargetName="HeaderHost" Property="Margin" Value="7,1,7,1"/>
+                            </Trigger>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ThemeHoverBg}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource ThemeTextMuted}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="{DynamicResource ThemeText}"/>
+        </Style>
+        <Style TargetType="{x:Type ToolTip}">
+            <Setter Property="Background" Value="{DynamicResource ThemePanelBg}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ThemeText}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ThemeButtonBorder}"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource ThemeText}"/>
+        </Style>
+        <Style x:Key="ToolBtn" TargetType="{x:Type Button}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{DynamicResource ThemeText}"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="b" CornerRadius="6" Background="{DynamicResource ThemeButtonBg}" BorderBrush="{DynamicResource ThemeButtonBorder}" BorderThickness="1" Padding="11,3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="b" Property="BorderBrush" Value="{DynamicResource ThemeAccentRed}"/>
+                                <Setter TargetName="b" Property="Background" Value="{DynamicResource ThemeHoverBg}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RunBtn" TargetType="{x:Type Button}" BasedOn="{StaticResource ToolBtn}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="b" CornerRadius="6" Background="#2DA44E" BorderBrush="#2C974B" BorderThickness="1" Padding="14,3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="b" Property="Background" Value="#2C974B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <!-- ===================== MENÚS (OpenSees) ===================== -->
+        <Menu DockPanel.Dock="Top" Background="{DynamicResource ThemeWindowBg}" Foreground="{DynamicResource ThemeText}">
+            <MenuItem Header="_Archivo">
+                <MenuItem Header="_Nuevo" InputGestureText="Ctrl+N" Click="New_Click"/>
+                <MenuItem Header="_Abrir…" InputGestureText="Ctrl+O" Click="Open_Click"/>
+                <Separator/>
+                <MenuItem Header="_Guardar" InputGestureText="Ctrl+S" Click="Save_Click"/>
+                <MenuItem Header="Guardar _como…" Click="SaveAs_Click"/>
+                <MenuItem Header="Guardar como OpenSees Tcl ejecutable (archivo)…" Click="SaveTclExec_Click"/>
+                <MenuItem Header="Corroborar con OpenSees oficial…" Click="Corroborar_Click"/>
+                <MenuItem Header="Exportar _reporte HTML…" Click="ExportHtml_Click"/>
+                <MenuItem Header="Exportar reporte como _imagen PNG…" Click="ExportPng_Click"/>
+                <Separator/>
+                <MenuItem Header="_Salir" Click="Exit_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Editar">
+                <MenuItem Header="_Deshacer" InputGestureText="Ctrl+Z" Click="Undo_Click"/>
+                <MenuItem Header="_Rehacer" InputGestureText="Ctrl+Y" Click="Redo_Click"/>
+                <Separator/>
+                <MenuItem Header="Cor_tar" Click="Cut_Click"/>
+                <MenuItem Header="_Copiar" Click="Copy_Click"/>
+                <MenuItem Header="_Pegar" Click="Paste_Click"/>
+                <Separator/>
+                <MenuItem Header="Comentar / descomentar (#)" InputGestureText="Ctrl+Q" Click="Comment_Click"/>
+                <MenuItem Header="Seleccionar _todo" Click="SelectAll_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Ejemplos" x:Name="ExamplesMenu"/>
+
+            <MenuItem Header="_Modelo">
+                <MenuItem Header="wipe" Tag="wipe" Click="Insert_Click"/>
+                <MenuItem Header="model 2D  (-ndm 2 -ndf 3)" Tag="model2d" Click="Insert_Click"/>
+                <MenuItem Header="model 3D  (-ndm 3 -ndf 6)" Tag="model3d" Click="Insert_Click"/>
+                <Separator/>
+                <MenuItem Header="node" Tag="node" Click="Insert_Click"/>
+                <MenuItem Header="fix  (apoyo)" Tag="fix" Click="Insert_Click"/>
+                <MenuItem Header="mass" Tag="mass" Click="Insert_Click"/>
+                <MenuItem Header="rigidDiaphragm" Tag="diaph" Click="Insert_Click"/>
+                <Separator/>
+                <MenuItem Header="geomTransf Linear" Tag="gtLinear" Click="Insert_Click"/>
+                <MenuItem Header="geomTransf PDelta" Tag="gtPDelta" Click="Insert_Click"/>
+                <MenuItem Header="geomTransf Corotational" Tag="gtCoro" Click="Insert_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="Ma_teriales">
+                <MenuItem Header="uniaxialMaterial Elastic" Tag="matElastic" Click="Insert_Click"/>
+                <MenuItem Header="uniaxialMaterial Steel02" Tag="matSteel02" Click="Insert_Click"/>
+                <MenuItem Header="uniaxialMaterial Concrete02" Tag="matConc02" Click="Insert_Click"/>
+                <MenuItem Header="nDMaterial ElasticIsotropic" Tag="ndElastic" Click="Insert_Click"/>
+                <Separator/>
+                <MenuItem Header="section Elastic" Tag="secElastic" Click="Insert_Click"/>
+                <MenuItem Header="section ElasticMembranePlateSection (DKE / placa)" Tag="secPlate" Click="Insert_Click"/>
+                <MenuItem Header="section Fiber" Tag="secFiber" Click="Insert_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Elementos">
+                <MenuItem Header="truss" Tag="elTruss" Click="Insert_Click"/>
+                <MenuItem Header="elasticBeamColumn" Tag="elEBC" Click="Insert_Click"/>
+                <MenuItem Header="forceBeamColumn" Tag="elFBC" Click="Insert_Click"/>
+                <MenuItem Header="zeroLength" Tag="elZL" Click="Insert_Click"/>
+                <Separator/>
+                <MenuItem Header="quad  (membrana 2D)" Tag="elQuad" Click="Insert_Click"/>
+                <MenuItem Header="ShellMITC4" Tag="elMITC4" Click="Insert_Click"/>
+                <MenuItem Header="ShellDKGQ  (DKE — quad)" Tag="elDKGQ" Click="Insert_Click"/>
+                <MenuItem Header="ShellDKGT  (DKE — triángulo)" Tag="elDKGT" Click="Insert_Click"/>
+                <MenuItem Header="stdBrick  (sólido 3D)" Tag="elBrick" Click="Insert_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Cargas">
+                <MenuItem Header="timeSeries Linear" Tag="tsLinear" Click="Insert_Click"/>
+                <MenuItem Header="timeSeries Path" Tag="tsPath" Click="Insert_Click"/>
+                <MenuItem Header="pattern Plain { load … }" Tag="patPlain" Click="Insert_Click"/>
+                <MenuItem Header="load  (carga nodal)" Tag="load" Click="Insert_Click"/>
+                <MenuItem Header="eleLoad -beamUniform" Tag="eleLoad" Click="Insert_Click"/>
+                <MenuItem Header="sp  (desplazamiento impuesto)" Tag="sp" Click="Insert_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Análisis">
+                <MenuItem Header="Plantilla — Estático lineal" Tag="anStatic" Click="Insert_Click"/>
+                <MenuItem Header="Plantilla — Modal (eigen)" Tag="anModal" Click="Insert_Click"/>
+                <MenuItem Header="Plantilla — Dinámico (Newmark)" Tag="anDynamic" Click="Insert_Click"/>
+                <Separator/>
+                <MenuItem Header="analyze" Tag="analyze" Click="Insert_Click"/>
+                <MenuItem Header="▶  CORRER" InputGestureText="F5" Click="Run_Click" FontWeight="Bold"/>
+            </MenuItem>
+
+            <MenuItem Header="_Gráficas">
+                <MenuItem Header="Ventana de dibujo 2D/3D  #dibujar … #enddibujar  (como Hekatan LISP)" Tag="dibujar" Click="Insert_Click"/>
+                <MenuItem Header="Bloque #gfx … #endgfx  (gráficas MATLAB)" Tag="gfxBlock" Click="Insert_Click"/>
+                <MenuItem Header="Plotly (opcional)  plotlyPlot / plotlySurf" Tag="gfxPlotly" Click="Insert_Click"/>
+                <MenuItem Header="plot(x, y)" Tag="gfxPlot" Click="Insert_Click"/>
+                <MenuItem Header="surf(X, Y, Z)" Tag="gfxSurf" Click="Insert_Click"/>
+                <MenuItem Header="bar / contourf" Tag="gfxBar" Click="Insert_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Resultados">
+                <MenuItem Header="puts [nodeDisp]" Tag="resDisp" Click="Insert_Click"/>
+                <MenuItem Header="Exportar valor  (HEKATAN:)" Tag="resCalcpad" Click="Insert_Click"/>
+                <MenuItem Header="reacciones / nodeReaction" Tag="resReact" Click="Insert_Click"/>
+                <Separator/>
+                <MenuItem Header="recorder Node" Tag="recNode" Click="Insert_Click"/>
+                <MenuItem Header="recorder Element" Tag="recEle" Click="Insert_Click"/>
+                <MenuItem Header="eigen + modalProperties" Tag="resModal" Click="Insert_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="A_yuda">
+                <MenuItem Header="Referencia de comandos OpenSees (web)" Click="HelpRef_Click"/>
+                <MenuItem Header="Acerca de Hekatan OpenSees" Click="About_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- ===================== BARRA DE BOTONES (estilo Calcpad) ===================== -->
+        <Border DockPanel.Dock="Top" Background="{DynamicResource ThemePanelBg}" BorderBrush="{DynamicResource ThemeButtonBorder}" BorderThickness="0,0,0,1" Padding="8,6">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Style="{StaticResource ToolBtn}" Click="New_Click" ToolTip="Nuevo (Ctrl+N)">Nuevo</Button>
+                <Button Style="{StaticResource ToolBtn}" Click="Open_Click" ToolTip="Abrir (Ctrl+O)">Abrir</Button>
+                <Button Style="{StaticResource ToolBtn}" Click="Save_Click" ToolTip="Guardar (Ctrl+S)">Guardar</Button>
+                <Separator Margin="8,2"/>
+                <Button Style="{StaticResource RunBtn}" Click="Run_Click" ToolTip="Correr (F5)">▶  Correr</Button>
+                <CheckBox x:Name="AutoRun" Content=" AutoRun" IsChecked="True" FontFamily="Roboto" FontSize="12.5"
+                          VerticalAlignment="Center" Margin="12,0,0,0"
+                          ToolTip="Recalcula tras cada edición"/>
+                <Separator Margin="8,2"/>
+                <Button Style="{StaticResource ToolBtn}" Click="Solo_Click" ToolTip="Solo la animación (F11); Esc para volver">Solo animación</Button>
+                <Button Style="{StaticResource ToolBtn}" Click="Corroborar_Click" ToolTip="Corre el mismo script en el OpenSees oficial y compara los valores HEKATAN:">Corroborar</Button>
+                <Button Style="{StaticResource ToolBtn}" Click="ExportHtml_Click" ToolTip="Exportar reporte HTML">Exportar HTML</Button>
+                <Button Style="{StaticResource ToolBtn}" Click="ExportPng_Click" ToolTip="Exportar reporte como imagen PNG (gráficas, resultados, ecuaciones)">Exportar PNG</Button>
+                <Separator Margin="8,2"/>
+                <Button x:Name="ThemeDarkBtn" Style="{StaticResource ToolBtn}" Click="ThemeDark_Click" ToolTip="Tema oscuro (como Hekatan Lab)">Oscuro</Button>
+                <Button x:Name="ThemeLightBtn" Style="{StaticResource ToolBtn}" Click="ThemeLight_Click" ToolTip="Tema claro (dorado, como Hekatan Lab)">Claro</Button>
+            </StackPanel>
+        </Border>
+
+        <!-- ===================== BARRA DE ESTADO ===================== -->
+        <StatusBar DockPanel.Dock="Bottom" Height="26" Background="{DynamicResource ThemePanelBg}" BorderBrush="{DynamicResource ThemeButtonBorder}" BorderThickness="0,1,0,0">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Foreground="{DynamicResource ThemeTextMuted}" Margin="6,0" Text="Listo"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Foreground="{DynamicResource ThemeTextMuted}" Margin="6,0" Text="Hekatan OpenSees · DLL de Petracca y Camata + gráficas de Hekatan Lab (#gfx)"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <!-- ===================== EDITOR | REPORTE ===================== -->
+        <Grid Margin="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="ColEditor" Width="1.05*"/>
+                <ColumnDefinition x:Name="ColSplit" Width="6"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderBrush="{DynamicResource ThemeButtonBorder}" BorderThickness="1" CornerRadius="4">
+                <DockPanel>
+                    <Border DockPanel.Dock="Top" Background="{DynamicResource ThemePanelBg}" BorderBrush="{DynamicResource ThemeButtonBorder}" BorderThickness="0,0,0,1">
+                        <TextBlock Text="  Script OpenSees (.tcl)" Foreground="{DynamicResource ThemeAccentGold}" Padding="4" FontSize="12"/>
+                    </Border>
+                    <avalon:TextEditor x:Name="Editor" ShowLineNumbers="True" FontFamily="Cascadia Code, Consolas" FontSize="13"
+                             BorderThickness="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                             WordWrap="False" Padding="4,2" Background="{DynamicResource ThemeEditorBg}" Foreground="{DynamicResource ThemeText}"
+                             TextChanged="Editor_TextChanged"/>
+                </DockPanel>
+            </Border>
+
+            <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" Background="{DynamicResource ThemeButtonBorder}"/>
+
+            <Border Grid.Column="2" BorderBrush="{DynamicResource ThemeButtonBorder}" BorderThickness="1" CornerRadius="4">
+                <DockPanel>
+                    <Border DockPanel.Dock="Top" Background="{DynamicResource ThemePanelBg}" BorderBrush="{DynamicResource ThemeButtonBorder}" BorderThickness="0,0,0,1">
+                        <TextBlock Text="  Reporte" Foreground="{DynamicResource ThemeAccentGold}" Padding="4" FontSize="12"/>
+                    </Border>
+                    <wv2:WebView2 x:Name="Web"/>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>
