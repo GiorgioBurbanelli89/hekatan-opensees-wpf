@@ -16,14 +16,18 @@ las tablas de desplazamientos y los valores exportados con `puts "HEKATAN:nombre
 dotnet build HekatanOpenSees.csproj -c Release
 ```
 
-## Qué NO incluye este repositorio
+## Motor de cálculo (no incluido aquí)
 
-El **motor de cálculo OpenSees** (la DLL / el ejecutable) **no se distribuye aquí**. OpenSees es © The Regents of the University
-of California y su licencia limita la redistribución comercial
-(<https://github.com/OpenSees/OpenSees/blob/master/COPYRIGHT>). Para ejecutar los cálculos necesitas tu propia copia de OpenSees
-(el `OpenSees.exe` oficial para **Corroborar**; la DLL embebida se busca en `..\test`, ver el `.csproj`).
-El repositorio contiene solo la interfaz, los scripts de reporte (`oscalc.py`, `corroborar.py`, `ecuacion.py`, `hk_ops.py`)
-y los ejemplos.
+Los cálculos los hace el **solver de Massimo Petracca y Guido Camata** sobre **OpenSees** (sus aportes son públicos, de ellos).
+Este repositorio **no redistribuye** ese motor ni OpenSees: contiene solo la interfaz, los scripts de reporte
+(`oscalc.py`, `corroborar.py`, `ecuacion.py`, `hk_ops.py`) y los ejemplos. Para ejecutar necesitas tu propia copia del motor
+(la DLL embebida se busca en `..	est`, ver el `.csproj`) y, para **Corroborar**, el `OpenSees.exe` oficial.
+OpenSees es © The Regents of the University of California; revisa su licencia
+(<https://github.com/OpenSees/OpenSees/blob/master/COPYRIGHT>) antes de redistribuirlo.
+
+## Créditos
+
+Massimo Petracca y Guido Camata (solver y elementos), OpenSees (UC Berkeley, PEER).
 
 ## Terceros incluidos
 
